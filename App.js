@@ -41,14 +41,16 @@ _getWeather = (lat, long) => {
 };
 
   render() {
-    const { isLoaded, error } = this.state;
+    const { isLoaded, error, temperature, name } = this.state;
     return (
       //상단메뉴바 안보에게
       <View style= {styles.container}>
         <StatusBar hidden = {true}/>
       // 로딩 안되있으면 App.js 되있으면 Weather.js
-        { isLoaded ? <Weather/> : (<View style= {styles.loading}>
-
+        { isLoaded ?
+          (<Weather weatherName= {name} temp = {Math.floor(this.state.temperature-273.15)}/>
+          ):
+           (<View style= {styles.loading}>
           <Text style={styles.loadingText}>Getting the fucking weather</Text>
           {error ? <Text style = {styles.errorText}>{error}</Text> : null}
         </View>)}
